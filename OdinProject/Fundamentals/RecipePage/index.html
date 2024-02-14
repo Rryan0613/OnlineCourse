@@ -37,13 +37,14 @@
 <p>Jump to letter: 
 <a href="#letter_.">.</a>&nbsp;
 <a href="#letter_3">3</a>&nbsp;
-<a href="#letter_3">4</a>&nbsp;
-<a href="#letter_3">5</a>&nbsp;
-<a href="#letter_3">6</a>&nbsp;
-<a href="#letter_3">7</a>&nbsp;
-<a href="#letter_3">8</a>&nbsp;
-<a href="#letter_3">9</a>&nbsp;
-<a href="#letter_3">10</a>&nbsp;
+<a href="#letter_4">4</a>&nbsp;
+<a href="#letter_5">5</a>&nbsp;
+<a href="#letter_6">6</a>&nbsp;
+<a href="#letter_7">7</a>&nbsp;
+<a href="#letter_8">8</a>&nbsp;
+<a href="#letter_9">9</a>&nbsp;
+<a href="#letter_10">10</a>&nbsp;
+
 <a href="#letter_a">a</a>&nbsp;
 <a href="#letter_b">b</a>&nbsp;
 <a href="#letter_c">c</a>&nbsp;
@@ -70,11 +71,53 @@
 <a href="#letter_x">x</a>&nbsp;
 <a href="#letter_y">y</a>&nbsp;
 <a href="#letter_z">z</a>&nbsp;
+
+<a href="#letter_1s">1s</a>&nbsp;
+<a href="#letter_2s">2s</a>&nbsp;
+<a href="#letter_3s">3s</a>&nbsp;
+<a href="#letter_4s">4s</a>&nbsp;
+<a href="#letter_5s">5s</a>&nbsp;
+<a href="#letter_6s">6s</a>&nbsp;
+<a href="#letter_7s">7s</a>&nbsp;
+<a href="#letter_8s">8s</a>&nbsp;
+<a href="#letter_9s">9s</a>&nbsp;
+<a href="#letter_10s">10s</a>&nbsp;
 <pre>
 <p><a id="letter_." href="#top">top</a>
 &nbsp; &nbsp; <a href="./man5/.ldaprc.5.html">.ldaprc(5)</a> - LDAP configuration file/environment variables
 <p><a id="letter_3" href="#top">top</a>
-&nbsp; &nbsp; <a href="./man7/30-systemd-environment-d-generator.7.html">30-systemd-environment-d-generator(7)</a> - List all manpages from the systemd project
+&nbsp; &nbsp; <a href="./man7/30-systemd-environment-d-generator.7.html">Lec 3 below</a> 
+----------
+top command
+In order to see the process information in Linux, top command can be used
+
+To see per CPU processes: press 1 while top is running
+To see the coloring: press z while top is running
+To highlight running processes: presss y while top is running (press b to highlight or bold)
+To sort by CPU time: press P while top is running
+To sort by Memory: press M while top is running
+top has some flags that can help in getting some information:
+
+To see a specific process info: top -p 1984 (where 1984 is the process ID)
+To see processes from a specific user: top -U raziiqbal
+ps command
+Another utility is ps used for processes in linux
+
+To see current running processes for your user: ps
+To see all the running processes: ps -e
+For more info on all the processes: ps -ef
+To see processes from a specific user: ps -U raziiqbal
+To search a process by name: ps -fC bash
+To see a specific process info: ps -p 2885 (where 2885 is the process ID)
+pidof command
+Another command to find the process id by name is pidof: pidof bash
+
+kill command
+To end a process by id: kill 4200
+
+Combining commands
+Commands can be combined: kill `pidof firefox`
+---------
 &nbsp; &nbsp; <a href="./man8/30-systemd-environment-d-generator.8.html">30-systemd-environment-d-generator(8)</a> - Load variables specified by environment.d
 <p><a id="letter_a" href="#top">top</a>
 &nbsp; &nbsp; <a href="./man3/a64l.3.html">a64l(3)</a> - convert between long and base-64
@@ -499,6 +542,208 @@
 &nbsp; &nbsp; <a href="./man3/avc_sid_to_context.3.html">avc_sid_to_context(3)</a> - obtain and manipulate SELinux security ID's
 &nbsp; &nbsp; <a href="./man8/avcstat.8.html">avcstat(8)</a> - Display SELinux AVC statistics
 &nbsp; &nbsp; <a href="./man1/awk.1p.html">awk(1p)</a> - pattern scanning and processing language
+
+
+
+
+
+
+
+
+<p><a id="letter_4" href="#top">top</a>
+&nbsp; &nbsp; <a href="./man7/30-systemd-environment-d-generator.7.html">Lec 4 below</a> 
+----------Post Process
+<p>Fork command is used to create parent child processes. In the below program Hello is printing only once.</p>
+
+<pre><code>#include&lt;stdio.h&gt;
+#include&lt;unistd.h&gt;
+
+int main()
+{
+    printf("Hello\n");
+    fork();
+    return 0;
+}
+</code></pre>
+
+<p>In the below program, Hello is printed twice; one for parent and one for child</p>
+
+<pre><code>#include&lt;stdio.h&gt;
+#include&lt;unistd.h&gt;
+
+int main()
+{
+    fork();
+    printf("Hello\n");
+    return 0;
+}
+</code></pre>
+
+<p>Similarly below program will print Hello 14 times</p>
+
+<pre><code>#include&lt;stdio.h&gt;
+#include&lt;unistd.h&gt;
+
+int main()
+{
+    fork();
+    printf("Hello\n");
+    fork();
+    printf("Hello\n");
+    fork();
+    printf("Hello\n");
+    return 0;
+}
+</code></pre>
+
+<p><code>getpid()</code> can be used get the ids for processes</p>
+
+<pre><code>#include&lt;stdio.h&gt;
+#include&lt;unistd.h&gt;
+
+int main()
+{
+    fork();
+    printf("Process ID:%d\n", getpid());
+    return 0;
+}
+</code></pre>
+
+<p><code>fork()</code> returns an integer that can help in distinguishing parent and child</p>
+
+<pre><code>#include&lt;stdio.h&gt;
+#include&lt;unistd.h&gt;
+
+int main()
+{
+    int i;
+    i = fork();
+    printf("Process ID:%d\n", i);
+
+    return 0;
+}
+
+// if fork returns 0, its a child
+// if fork returns &lt;0, its an error
+// if fork returns &gt;0, its a Parent
+</code></pre>
+
+<p>Conditional statements can help in finding the parent and child</p>
+
+<pre><code>#include&lt;stdio.h&gt;
+#include&lt;unistd.h&gt;
+
+int main()
+{
+    int i;
+    i = fork();
+
+    if (i == 0)
+    {
+        printf("I am a child and my Process ID:%d\n", getpid());
+    }
+    else
+    {
+        printf("I am a parent and my Process ID:%d\n", getpid());
+    }
+    
+
+    return 0;
+}
+</code></pre>
+
+<p>Different methods can be processed using parent and child</p>
+
+<pre><code>#include&lt;stdio.h&gt;
+#include&lt;unistd.h&gt;
+
+void show_odd(void)
+{
+    for (int i=0; i&lt;20; i++)
+    {
+        if (i%2 != 0)
+        {
+            printf("C - %d\n", i);
+        }
+    }
+}
+void show_even(void)
+{
+    for (int i=0; i&lt;20; i++)
+    {
+        if (i%2 == 0)
+        {
+            printf("P - %d\n", i);
+        }
+    }
+}
+
+int main()
+{
+    int i;
+    i = fork();
+
+    if (i == 0)
+    {
+        show_odd();
+    }
+    else
+    {
+        show_even();
+    }
+
+    return 0;
+}
+</code></pre>
+
+<p>Command line arguments can be used getting start and end ranges of showing numbers</p>
+
+<pre><code>#include&lt;stdio.h&gt;
+#include&lt;unistd.h&gt;
+#include &lt;stdlib.h&gt;
+
+void show_odd(int start, int end)
+{
+    for (int i=start; i&lt;end; i++)
+    {
+        if (i%2 != 0)
+        {
+            printf("C - %d\n", i);
+        }
+    }
+}
+void show_even(int start, int end)
+{
+    for (int i=start; i&lt;end; i++)
+    {
+        if (i%2 == 0)
+        {
+            printf("P - %d\n", i);
+        }
+    }
+}
+
+int main(int args, char *argv[])
+{
+    int start = atoi(argv[1]);
+    int end = atoi(argv[2]);
+
+    if (fork() == 0)
+    {
+        show_odd(start, end);
+    }
+    else
+    {
+        show_even(start, end);
+    }
+    return 0;
+}
+</code></pre>
+
+<p>You can run above program by providing arguments as below: <code>./hello_fork.o 0 20</code></p>
+---------
+
+
 <p><a id="letter_b" href="#top">top</a>
 &nbsp; &nbsp; <a href="./man1/b2sum.1.html">b2sum(1)</a> - compute and check BLAKE2 message digest
 &nbsp; &nbsp; <a href="./man1/babeltrace2-convert.1.html">babeltrace2-convert(1)</a> - Convert one or more traces to a given format
@@ -699,6 +944,108 @@
 &nbsp; &nbsp; <a href="./man1/busctl.1.html">busctl(1)</a> - Introspect the bus
 &nbsp; &nbsp; <a href="./man3/byteorder.3.html">byteorder(3)</a> - convert values between host and network byte order
 &nbsp; &nbsp; <a href="./man3/bzero.3.html">bzero(3)</a> - zero a byte string
+
+
+<p><a id="letter_8" href="#top">top</a>
+    &nbsp; &nbsp; <a href="./man7/30-systemd-environment-d-generator.7.html">Lec 8 below</a> 
+    ----------
+    <p>Below is the implementation of Banker's algorithm using a C program:</p>
+
+<pre><code>#include&lt;stdlib.h&gt;
+#include&lt;stdio.h&gt;
+
+#define NO_OF_PROCESSES 5
+#define NO_OF_RESOURCES 3
+
+struct Process
+{
+    int pid;
+    int allocations[10];
+    int maximum[10];
+    int need[10];
+    int completed;
+    int flag;   
+};
+
+int main()
+{
+    struct Process proc[NO_OF_PROCESSES] = {
+
+        {0, {0, 1, 0}, {7, 5, 3}, {7, 4, 3}, 0, 0},
+        {1, {2, 0, 0}, {3, 2, 2}, {1, 2, 2}, 0, 0}, 
+        {2, {3, 0, 2}, {9, 0, 2}, {6, 0, 0}, 0, 0}, 
+        {3, {2, 1, 1}, {2, 2, 2}, {0, 1, 1}, 0, 0}, 
+        {4, {0, 0, 2}, {4, 3, 3}, {4, 3, 1}, 0, 0}
+
+    };
+
+    int available[NO_OF_RESOURCES] = {3, 3, 2};
+    int sequence[NO_OF_PROCESSES];
+    int index = 0;
+
+    printf("\nAvailable Resources: R0=%d, R1=%d, R2=%d\n", available[0], available[1], available[2]);
+
+    printf("\nProcess \t Allocations \t Maximum \t Need\n");
+
+    for (int i = 0; i &lt; NO_OF_PROCESSES; i++)
+    {
+        for (int j = 0; j &lt; NO_OF_RESOURCES; j++)
+        {
+            printf("P%d \t\t %d \t\t %d \t\t %d\n", proc[i].pid, proc[i].allocations[j], proc[i].maximum[j], proc[i].need[j]);
+        }
+        printf("---------------------------------------------------------------------------\n");
+    }
+
+    // Bankers Algorithm
+
+    for (int k = 0; k &lt; NO_OF_PROCESSES; k++)
+    {
+            for (int i = 0; i &lt; NO_OF_PROCESSES; i++)
+            {
+                if (proc[i].completed == 0)
+                {
+                    proc[i].flag = 0;
+                    for (int j = 0; j &lt; NO_OF_RESOURCES; j++)
+                    {
+                        if (proc[i].need[j] &gt; available[j])
+                        {
+                            proc[i].flag = 1;
+                            break;
+                        }
+                    }
+
+                    if (proc[i].flag == 0)
+                    {
+                        sequence[index] = i;
+                        index++;
+                        for (int x = 0; x &lt; NO_OF_RESOURCES; x++)
+                        {
+                            available[x] += proc[i].allocations[x];
+                        }
+                        proc[i].completed = 1;
+                    }
+    
+                }
+
+            }
+
+    }
+
+    printf("Following is the Safe State Sequence\n");
+
+    for (int i = 0; i &lt; index; i++) 
+    {
+            printf(" P%d ->", sequence[i]); 
+    }
+
+    return 0;
+}
+</code></pre>
+
+
+    ----------
+
+
 <p><a id="letter_c" href="#top">top</a>
 &nbsp; &nbsp; <a href="./man1/c++filt.1.html">c++filt(1)</a> - demangle C++ and Java symbols
 &nbsp; &nbsp; <a href="./man1/c99.1p.html">c99(1p)</a> - compile standard C programs
@@ -1453,6 +1800,270 @@
 &nbsp; &nbsp; <a href="./man1/cut.1p.html">cut(1p)</a> - cut out selected fields of each line of a file
 &nbsp; &nbsp; <a href="./man1/cvtsudoers.1.html">cvtsudoers(1)</a> - convert between sudoers file formats
 &nbsp; &nbsp; <a href="./man1/cxref.1p.html">cxref(1p)</a> - language program cross-reference table (DEVELOPMENT)
+
+
+<p><a id="letter_5" href="#top">top</a>
+    &nbsp; &nbsp; <a href="./man7/30-systemd-environment-d-generator.7.html">Lec 5 below</a> 
+    ---------thread programming
+    <p>At the creation of a process, there will be a default thread in it. Let's get its ID:</p>
+
+<pre><code>#include&lt;stdio.h&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;pthread.h&gt;
+#include&lt;unistd.h&gt;
+
+int main()
+{
+    
+    printf("The ID Of the main thread: %lu \n", pthread_self());
+
+    // can also convert into int and then show
+    printf("The ID of the main thread: %d\n", (int)pthread_self());
+
+    printf("The ID of the process: %d\n", getpid());
+    return 0;
+}
+</code></pre>
+
+<p>Threads can be created using pthread:</p>
+
+<pre><code>#include&lt;stdio.h&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;pthread.h&gt;
+#include&lt;unistd.h&gt;
+
+
+void *thread_function(void *args)
+{
+    printf("The ID of the child thread: %d\n", (int)pthread_self());
+}
+
+int main()
+{
+    printf("The ID of the main thread: %d\n", (int)pthread_self());
+
+    pthread_t tid;
+
+    pthread_create(&tid, NULL, &thread_function, NULL);
+
+    pthread_join(tid, NULL);
+
+    return 0;
+}
+</code></pre>
+
+<p>Status of the thread can be checked to see if it is still running or has been terminated:</p>
+
+<pre><code>#include&lt;stdio.h&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;pthread.h&gt;
+#include&lt;unistd.h&gt;
+
+void * thread_function(void *args)
+{
+    printf("I am a new thread with ID:%lu,\n", pthread_self());
+}
+
+int main()
+{
+
+    printf("The ID Of the main thread: %lu \n", pthread_self());
+    
+    pthread_t tid;
+    int thread_status;
+
+    pthread_create(&tid, NULL, &thread_function, NULL);
+    pthread_join(tid, (void *)&amp;thread_status);
+
+    if (thread_status == 0) 
+    {
+        printf("Thread is still running\n");
+    } 
+    else 
+    {
+        printf("Thread has terminated\n");
+    }
+
+    return 0;
+}
+</code></pre>
+
+<p>Threads can be cancelled as well by forcing them to not complete their execution:</p>
+
+<pre><code>#include&lt;stdio.h&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;pthread.h&gt;
+#include&lt;unistd.h&gt;
+
+void * thread_function(void *args)
+{
+    printf("I am a new thread with ID:%lu,\n", pthread_self());
+    sleep(10);
+}
+
+int main()
+{
+
+    printf("The ID Of the main thread: %lu \n", pthread_self());
+    
+    pthread_t tid;
+    int thread_status;
+
+    pthread_create(&tid, NULL, &thread_function, NULL);
+    pthread_cancel(tid);
+    pthread_join(tid, (void *)&amp;thread_status);
+
+    if (thread_status == 0) 
+    {
+        printf("Thread is still running\n");
+    } 
+    else 
+    {
+        printf("Thread has terminated\n");
+    }
+
+    return 0;
+}
+</code></pre>
+
+<p>Arguments can be passed to a function that thread is going to work on:</p>
+
+<pre><code>#include&lt;stdio.h&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;pthread.h&gt;
+#include&lt;unistd.h&gt;
+
+void * thread_function(void *args)
+{
+    int *end = args;
+    for (int i=0; i&lt;*end; i++)
+    {
+        if (i%2 == 0)
+        {
+            printf("i: %d\n", i);
+        }
+        
+    }
+}
+
+int main(int args, char* argv[])
+{
+
+    printf("The ID Of the main thread: %lu \n", pthread_self());
+    
+    pthread_t tid;
+    int thread_status;
+    int end = atoi(argv[1]);
+
+    pthread_create(&tid, NULL, &thread_function, &end);
+
+    pthread_join(tid, (void *)&amp;thread_status);
+
+    if (thread_status == 0) 
+    {
+        printf("Thread is still running\n");
+    } 
+    else 
+    {
+        printf("Thread has terminated\n");
+    }
+
+    return 0;
+}
+
+// run this program as ./hello_thread.o 20
+</code></pre>
+
+<p>Multiple threads can be created as well that can do different things:</p>
+
+<pre><code>#include&lt;stdio.h&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;pthread.h&gt;
+#include&lt;unistd.h&gt;
+
+void * even_function(void *args)
+{
+    int *end = args;
+    for (int i=0; i&lt;*end; i++)
+    {
+        if (i%2 == 0)
+        {
+            printf("i: %d\n", i);
+        }
+        
+    }
+}
+
+void * odd_function(void *args)
+{
+    int *end = args;
+    for (int i=0; i&lt;*end; i++)
+    {
+        if (i%2 != 0)
+        {
+            printf("i: %d\n", i);
+        }
+        
+    }
+}
+
+int main(int args, char* argv[])
+{
+
+    printf("The ID Of the main thread: %lu \n", pthread_self());
+    
+    pthread_t tid[2];
+    int end = atoi(argv[1]);
+
+    pthread_create(&tid[0], NULL, &even_function, &end);
+    pthread_create(&tid[1], NULL, &odd_function, &end);
+
+    pthread_join(tid[0], NULL);
+    pthread_join(tid[1], NULL);
+
+    return 0;
+}
+</code></pre>
+
+<p>Threads can use attributes as well:</p>
+
+<pre><code>#include&lt;stdio.h&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;pthread.h&gt;
+#include&lt;unistd.h&gt;
+
+void * thread_function(void * args)
+{
+    printf("I am the deteched thread\n");
+}
+
+
+
+int main(int args, char* argv[])
+{
+
+    printf("The ID Of the main thread: %lu \n", pthread_self());
+
+    pthread_t tid;
+    pthread_attr_t attr;
+
+    pthread_attr_init(&amp;attr);
+
+    pthread_attr_setstacksize(&amp;attr, 16384);
+    //pthread_attr_setdetachstate(&amp;attr, PTHREAD_CREATE_DETACHED);
+
+    pthread_create(&amp;tid, &amp;attr, &amp;thread_function, NULL);
+    
+    pthread_attr_destroy(&amp;attr);
+
+    return 0;
+}
+
+// Above program might not show output from thread_function as main thread might complete before thread can be executed.
+</code></pre>
+    ---------
+
+
 <p><a id="letter_d" href="#top">top</a>
 &nbsp; &nbsp; <a href="./man3/daemon.3.html">daemon(3)</a> - run in the background
 &nbsp; &nbsp; <a href="./man7/daemon.7.html">daemon(7)</a> - Writing and packaging system daemons
@@ -1770,6 +2381,117 @@
 &nbsp; &nbsp; <a href="./man3/dupwin.3x.html">dupwin(3x)</a> - create curses windows
 &nbsp; &nbsp; <a href="./man3/dynamic_field_info.3x.html">dynamic_field_info(3x)</a> - retrieve field characteristics
 &nbsp; &nbsp; <a href="./man3/dysize.3.html">dysize(3)</a> - get number of days for a given year
+
+
+
+<p><a id="letter_6" href="#top">top</a>
+    &nbsp; &nbsp; <a href="./man7/30-systemd-environment-d-generator.7.html">Lec 6 below</a> 
+    ----------Process Synchronization
+
+    <p>This program is for the reader and writer problem that might occur in an OS. Using Semaphores, we are solving the problem so that a shared variable <code>data</code> is not written with conflicts.</p>
+
+    <pre><code>// including required libraries
+    #include &lt;stdlib.h&gt;
+    #include &lt;stdio.h&gt;
+    #include &lt;pthread.h&gt;
+    #include &lt;semaphore.h&gt;
+    #include &lt;unistd.h&gt;
+    
+    // setting up global variables
+    int data = 0, read_count = 0;
+    // semaphores for locking critical sections
+    sem_t mutex, rw_mutex;
+    
+    // reader code
+    void *reader(void *thread)
+    {
+      // value of i from the for loop in main method is stored in t to show in printf
+      int t = (int)(intptr_t)thread;
+      
+      // Entry Section code
+      
+      // locking the semaphore to enter the critical section for readers which is to avoid writing read_count by multiple readers
+      sem_wait(&amp;mutex);
+      read_count++;
+      // check to see if there is any reader in the critical section
+      if (read_count == 1)
+      {
+        // lock the reader writer semaphore so that no writer can enter the critical section while reader is in critical section
+        sem_wait(&amp;rw_mutex);
+      }
+      // releasing the lock for readers so that more readers can write to read_count++ as this reader is done incrementing read_count
+      sem_post(&amp;mutex);
+      
+      // Critical Section code
+      printf("Data read by thread %d is %d\n", t, data);
+      sleep(1);
+      
+      // Exit Section code
+      
+      // In order to decrement read_count, locking the mutex to avoid multiple readers decrementing this variable
+      sem_wait(&amp;mutex);
+      read_count--;
+      
+      // if there is no more reader, release the lock for writer
+      if (read_count == 0)
+      {
+        sem_post(&amp;rw_mutex);
+      }
+      
+      // release the lock for readers so they can decrement read_count
+      sem_post(&amp;mutex);
+    }
+    
+    // writer code
+    void *writer(void *thread)
+    {
+      int t = (int)(intptr_t)thread;
+      
+      // Entry Section code
+      // lock the reader writer semaphore so that no writer or reader can enter the critical section while writer is in critical section
+      sem_wait(&amp;rw_mutex);
+      
+      // Critical Section code
+      data++;
+      printf("Data written by thread %d is %d\n", t, data);
+      sleep(1);
+      
+      // Exit Section code
+      // releasing the lock so that other writers or readers can enter their critical section
+      sem_post(&amp;rw_mutex);
+    }
+    
+    int main()
+    {
+      // creating 5 readers and 5 writers
+      pthread_t read[5], write[5];
+      
+      // initializing the semaphores; 
+      // in sem_init, 0 is to tell the value of this semaphore is shared between the thread and 1 is the value of this semaphore;
+      sem_init(&amp;mutex, 0, 1);
+      sem_init(&amp;rw_mutex, 0, 1);
+    
+      // creating threads 
+      for (int i = 0; i &lt; 5; i++)
+      {
+        // intptr_t is used to make sure the memory space is used appropriately across different hardware architectures
+        pthread_create(&amp;write[i], NULL, writer, (void *)(intptr_t)i);
+        pthread_create(&amp;read[i], NULL, reader, (void *)(intptr_t)i);
+      }
+      
+      // joining the threads
+      for (int i = 0; i &lt; 5; i++)
+      {
+        pthread_join(write[i], NULL);
+        pthread_join(read[i], NULL);
+      }
+      
+      return 0;
+    }
+    </code></pre>
+    ----------
+
+
 <p><a id="letter_e" href="#top">top</a>
 &nbsp; &nbsp; <a href="./man8/e2freefrag.8.html">e2freefrag(8)</a> - report free space fragmentation information
 &nbsp; &nbsp; <a href="./man8/e2fsck.8.html">e2fsck(8)</a> - check a Linux ext2/ext3/ext4 file system
@@ -1990,6 +2712,43 @@
 &nbsp; &nbsp; <a href="./man3/extended_pair_content.3x.html">extended_pair_content(3x)</a> - curses color manipulation routines
 &nbsp; &nbsp; <a href="./man3/extended_slk_color.3x.html">extended_slk_color(3x)</a> - curses soft label routines
 &nbsp; &nbsp; <a href="./man5/extension-release.5.html">extension-release(5)</a> - Operating system identification
+
+<p><a id="letter_7" href="#top">top</a>
+    &nbsp; &nbsp; <a href="./man7/30-systemd-environment-d-generator.7.html">Lec 7 below</a> 
+    ----------first come first serve
+<p>Write a C program for the first come first serve scheduling algorithm:</p>
+
+<pre><code>#include&lt;stdio.h&gt;
+#include&lt;stdlib.h&gt;
+
+#define NUM 5
+
+int main()
+{
+    int burst_time[NUM], wait_time = 0, turn_around_time = 0;
+    float avg_wait_time = 0; 
+
+    printf("Process\t Burst Time\tWait Time\tTurn Around Time\n");
+    for (int i = 0; i &lt; NUM; i++)
+    {
+
+        burst_time[i] = rand() % 10;
+        turn_around_time = burst_time[i] + wait_time;
+        printf("%d\t %d\t\t%d\t\t%d\n", i, burst_time[i], wait_time, turn_around_time);
+        avg_wait_time = avg_wait_time + wait_time;
+        wait_time = wait_time + burst_time[i];
+    }
+
+    printf("Average Wait Time: %.2f\n", avg_wait_time / NUM);
+
+    return 0;
+}
+</code></pre>
+
+--------
+
+
+
 <p><a id="letter_f" href="#top">top</a>
 &nbsp; &nbsp; <a href="./man3/fabs.3.html">fabs(3)</a> - absolute value of floating-point number
 &nbsp; &nbsp; <a href="./man3/fabs.3p.html">fabs(3p)</a> - absolute value function
@@ -2899,6 +3658,58 @@
 &nbsp; &nbsp; <a href="./man3/fwrite_unlocked.3.html">fwrite_unlocked(3)</a> - nonlocking stdio functions
 &nbsp; &nbsp; <a href="./man3/__fwriting.3.html">__fwriting(3)</a> - interfaces to stdio FILE structure
 &nbsp; &nbsp; <a href="./man3/fwscanf.3p.html">fwscanf(3p)</a> - character input
+
+<p><a id="letter_9" href="#top">top</a>
+    &nbsp; &nbsp; <a href="./man7/30-systemd-environment-d-generator.7.html">Lec 9 below</a> 
+    ----------First Fit Memory Management Algorithm
+    <p>Below is a C program for the First Fit Memory Management Algorithm:</p>
+
+<pre><code>#include&lt;stdio.h&gt;
+
+#define BLOCK_SIZE 5
+#define PROCESS_SIZE 5
+
+int main()
+
+{
+    int blocks[BLOCK_SIZE] = {400, 200, 300, 500, 100};
+    int processes[PROCESS_SIZE] = {100, 50, 550, 150, 480};
+    int allocations[PROCESS_SIZE] = {-1, -1, -1, -1, -1};
+
+    for (int i = 0; i &lt; PROCESS_SIZE; i++)
+    {
+        for (int j = 0; j &lt; BLOCK_SIZE; j++)
+        {
+            if (blocks[j] &gt;= processes[i])
+            {
+                allocations[i] = j;
+                blocks[j] = blocks[j] - processes[i];
+                break;
+            }
+        }
+    }
+
+    printf("Process \t Process Size \t Allocations\n");
+
+    for (int i = 0; i &lt; PROCESS_SIZE; i++)
+    {
+        printf("P%d \t\t %d\t\t\t", i, processes[i]);
+        if (allocations[i] == -1)
+        {
+            printf("Unallocated\n");
+        }
+        else
+        {
+            printf("%d\n", allocations[i]);
+        }
+    }
+    return 0;
+}
+</code></pre>
+
+    ----------
+
+
 <p><a id="letter_g" href="#top">top</a>
 &nbsp; &nbsp; <a href="./man1/g++.1.html">g++(1)</a> - GNU project C and C++ compiler
 &nbsp; &nbsp; <a href="./man5/gai.conf.5.html">gai.conf(5)</a> - getaddrinfo(3) configuration file
@@ -4685,6 +5496,104 @@
 &nbsp; &nbsp; <a href="./man2/gtty.2.html">gtty(2)</a> - unimplemented system calls
 &nbsp; &nbsp; <a href="./man1/guards.1.html">guards(1)</a> - select from a list of files guarded by conditions
 &nbsp; &nbsp; <a href="./man1/gxditview.1.html">gxditview(1)</a> - 
+
+<p><a id="letter_10" href="#top">top</a>
+    &nbsp; &nbsp; <a href="./man7/30-systemd-environment-d-generator.7.html">Lec 10 below</a> 
+    ----------Virtual Memory
+    <p>Writing to a virtual memory:</p>
+
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;sys/mman.h&gt;
+
+int main() {
+  size_t pagesize = sysconf(_SC_PAGE_SIZE);
+
+  // mmap
+  void *mmap(void *addr, size_t length, int prot, int flags, int fd, off_t offset);
+  void *ptr = mmap(NULL, pagesize, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+
+  if (ptr == MAP_FAILED) {
+    perror("mmap");
+    return EXIT_FAILURE;
+  }
+
+  printf("Accessing virtual memory at address: %p\n", ptr);
+  *(int *)ptr = 42;
+  printf("Value at address %p is: %d\n", ptr, *(int *)ptr);
+
+  munmap(ptr, pagesize);
+  return EXIT_SUCCESS;
+}</code></pre>
+
+<p>Writing character array to a virtual memory:</p>
+
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;sys/mman.h&gt;
+#include &lt;string.h&gt;
+
+int main()
+{
+    char *str = "Hello Virtual Memory";
+    int len = strlen(str) + 1;
+
+    void *ptr = mmap(NULL, len, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+
+    printf("Accessing Virtual Memory: %p\n", ptr);
+    sprintf((char *)ptr,"%s", str);
+    printf("Write: %s\n", (char*)ptr);
+
+    munmap(ptr, len);
+    return 0;
+}</code></pre>
+
+<p>Two virtual memories, one each of even and odd:</p>
+
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;stdlib.h&gt;
+#include &lt;unistd.h&gt;
+#include &lt;sys/mman.h&gt;
+
+int main() {
+  int numbers[] = {1, 2, 3, 4, 5};
+  int even_count = 0, odd_count = 0;
+  size_t len = sizeof(numbers);
+  void *even_ptr = mmap(NULL, len, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+  void *odd_ptr = mmap(NULL, len, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+
+  if (even_ptr == MAP_FAILED || odd_ptr == MAP_FAILED) {
+    perror("mmap");
+    return EXIT_FAILURE;
+  }
+
+  for (int i = 0; i < sizeof(numbers) / sizeof(numbers[0]); i++) {
+    if (numbers[i] % 2 == 0) {
+      ((int *)even_ptr)[even_count++] = numbers[i];
+    } else {
+      ((int *)odd_ptr)[odd_count++] = numbers[i];
+    }
+  }
+
+  printf("Even numbers: ");
+  for (int i = 0; i < even_count; i++) {
+    printf("%d ", ((int *)even_ptr)[i]);
+  }
+  printf("\n");
+
+  printf("Odd numbers: ");
+  for (int i = 0; i < odd_count; i++) {
+    printf("%d ", ((int *)odd_ptr)[i]);
+  }
+  printf("\n");
+
+  munmap(even_ptr, len);
+  munmap(odd_ptr, len);
+  return EXIT_SUCCESS;
+}</code></pre>
+    ----------
 <p><a id="letter_h" href="#top">top</a>
 &nbsp; &nbsp; <a href="./man3/halfdelay.3x.html">halfdelay(3x)</a> - curses input options
 &nbsp; &nbsp; <a href="./man8/halt.8.html">halt(8)</a> - Power off, reboot, or halt the machine
@@ -13461,7 +14370,12 @@
 &nbsp; &nbsp; <a href="./man8/xtables-monitor.8.html">xtables-monitor(8)</a> - show changes to rule set and trace-events
 &nbsp; &nbsp; <a href="./man8/xtables-nft.8.html">xtables-nft(8)</a> - iptables using nftables kernel api
 &nbsp; &nbsp; <a href="./man8/xtables-translate.8.html">xtables-translate(8)</a> - translation tool to migrate from iptables to nftables
-&nbsp; &nbsp; <a href="./man1/xtotroff.1.html">xtotroff(1)</a> - 
+&nbsp; &nbsp; <a href="./man1/xtotroff.1.html">xtotroff(1)</a> -
+<p><a id="letter_1s" href="#top">top</a>
+    &nbsp; &nbsp; <a href="./man7/30-systemd-environment-d-generator.7.html">Lec 1 slide below</a> 
+    ----------
+    <img src="" alt="">
+    ----------
 <p><a id="letter_y" href="#top">top</a>
 &nbsp; &nbsp; <a href="./man3/y0.3.html">y0(3)</a> - Bessel functions of the second kind
 &nbsp; &nbsp; <a href="./man3/y0.3p.html">y0(3p)</a> - Bessel functions of the second kind
