@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel=stylesheet type="text/css" href="style.css" title="style">
+    <title>Document</title>
+</head>
+<body>
+    <div class="registration">
+        <div class="left">
+            <div class="imageLeft">
+                <img src="photo-1585202900225-6d3ac20a6962.avif" alt="Leaf image">
+            </div>
+        </div>
+        <div class="right">
+            <div class="imageRight">
+                <div class="form">
+                    <div class="title">Register</div>
+                    <form id="form" action="#">
+                        <div class="user-details">
+                            <div class="input-box">
+                                <span class="details">Full Name</span>
+                                <input id="name" type="text" onblur="validateInputs(2)">
+                                <div class="error"></div>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Username</span>
+                                <input id="username" type="text" onblur="validateInputs(0)">
+                                <div class="error"></div>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Email</span>
+                                <input id="email" type="text" onblur="validateInputs(3)">
+                                <div class="error"></div>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Phone Number</span>
+                                <input id="number" onblur="validateInputs(1)">
+                                <div class="error"></div>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Password</span>
+                                <input id="password" type="password" onblur="validateInputs(4)">
+                                <div class="error"></div>
+                            </div>
+                            <div class="input-box">
+                                <span class="details">Confirm Password</span>
+                                <input id="password2" type="password" onblur="validateInputs(5)">
+                                <div class="error"></div>
+                            </div>
+                        </div>
+                        <div class="gender-details" >
+                            <input type ="radio" name="gender" id="dot-1" onclick="validateInputs(6)">
+                            <input type ="radio" name="gender" id="dot-2" onclick="validateInputs(6)">
+                            <input type ="radio" name="gender" id="dot-3" onclick="validateInputs(6)">
+                            <span class="gender-title">Gender</span>
+                            <div class="error"></div>
+                            <div class="category" >
+                                <label for ="dot-1">
+                                    <span class="dot one"></span>
+                                    <span class="gender">Male</span>
+                                </label>
+                                <label for ="dot-2">
+                                    <span class="dot two"></span>
+                                    <span class="gender">Female</span>
+                                </label>
+                                <label for ="dot-3">
+                                    <span class="dot three"></span>
+                                    <span class="gender">Prefere not to say</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="button">
+                            <input type="submit" value="Register">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
